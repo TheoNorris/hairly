@@ -21,6 +21,146 @@ function smallText(element) {
   element.style.margin = "0 10px";
 }
 
+/* Function that creates cards for products within the website */
+
+function createProductDiv(productDetails, container) {
+  for (let i = 0; i < productDetails.brand.length; i++) {
+    const productDiv = document.createElement("div");
+    container.appendChild(productDiv);
+    productDiv.style.margin = "0 12.5px 15px";
+    productDiv.style.backgroundColor = "4bb469";
+    const productImage = document.createElement("img");
+    productDiv.appendChild(productImage);
+    productImage.src = `images/${productDetails.image[i]}`;
+    productImage.style.width = "100%";
+    const brandAndPrice = document.createElement("div");
+    productDiv.appendChild(brandAndPrice);
+    brandAndPrice.style.width = "100%";
+    brandAndPrice.style.display = "flex";
+    brandAndPrice.style.justifyContent = "space-between";
+    const brand = document.createElement("p");
+    brandAndPrice.appendChild(brand);
+    brand.innerText = productDetails.brand[i];
+    smallText(brand);
+    brand.style.fontSize = "20px";
+    brand.style.margin = gP;
+    const saleAndPrice = document.createElement("div");
+    brandAndPrice.appendChild(saleAndPrice);
+    addFlex(saleAndPrice);
+    if (productDetails.salePrice != "") {
+      const sale = document.createElement("p");
+      saleAndPrice.appendChild(sale);
+      sale.innerText = `${productDetails.salePrice[i]}kr`;
+      smallText(sale);
+      sale.style.fontSize = "20px";
+      sale.style.margin = gP;
+      sale.style.textDecoration = "line-through";
+      const price = document.createElement("p");
+      saleAndPrice.appendChild(price);
+      price.innerText = `${productDetails.price[i]}kr`;
+      smallText(price);
+      price.style.fontSize = "20px";
+      price.style.margin = gP;
+      price.style.color = "red";
+    } else {
+      const price = document.createElement("p");
+      saleAndPrice.appendChild(price);
+      price.innerText = `${productDetails.price[i]}kr`;
+      smallText(price);
+      price.style.fontSize = "20px";
+      price.style.margin = gP;
+    }
+    const productType = document.createElement("p");
+    productDiv.appendChild(productType);
+    productType.innerText = productDetails.product[i];
+    smallText(productType);
+    productType.style.margin = "0 15px 15px";
+    productType.style.fontSize = "20px";
+    const buyDiv = document.createElement("div");
+    productDiv.appendChild(buyDiv);
+    buyDiv.style.display = "flex";
+    buyDiv.style.justifyContent = "center";
+    buyDiv.style.backgroundColor = "F8F8F8";
+    buyDiv.style.border = "1px solid #C7C7C7";
+    buyDiv.style.padding = "15px";
+    const cartDiv = document.createElement("div");
+    buyDiv.appendChild(cartDiv);
+    addFlex(cartDiv);
+    cartDiv.style.justifyContent = "center";
+    const cartImage = document.createElement("img");
+    cartDiv.appendChild(cartImage);
+    cartImage.src = "images/basket.png";
+    cartImage.style.height = "25px";
+    const cartBuy = document.createElement("p");
+    cartDiv.appendChild(cartBuy);
+    cartBuy.innerText = "Buy now";
+    cartBuy.style.color = "#36454F";
+    cartBuy.style.margin = "auto 10px";
+    cartBuy.style.letterSpacing = "1px";
+    cartBuy.style.fontSize = "20px";
+  }
+}
+
+/* function that creates images with texts and CTA buttons */
+
+function createPicAndText(details) {
+  const heroImagediv = document.createElement("div");
+  document.body.append(heroImagediv);
+  heroImagediv.style.maxWidth = "100%";
+  heroImagediv.style.height = "80%";
+  heroImagediv.style.display = "flex";
+  heroImagediv.style.flexDirection = "column";
+  heroImagediv.style.justifyContent = "center";
+  heroImagediv.style.backgroundPosition = "center";
+  heroImagediv.style.backgroundSize = "cover";
+  heroImagediv.style.backgroundImage = `linear-gradient(90deg, rgba(201, 59, 161, 0.1), rgba(0, 0, 0, 0.5)), url(${details.image})`;
+  heroImagediv.style.boxShadow = "5px 2px 2px gray";
+
+  /* Creating hero text and button */
+
+  const heroTextDiv = document.createElement("div");
+  heroImagediv.appendChild(heroTextDiv);
+  heroTextDiv.style.padding = "60px";
+  const heroImageH1 = document.createElement("h1");
+  heroTextDiv.appendChild(heroImageH1);
+  heroImageH1.innerText = details.h11;
+  const heroImageH2 = document.createElement("h1");
+  heroTextDiv.appendChild(heroImageH2);
+  heroImageH2.innerText = details.h12;
+  heroImageH1.classList.add("heroHeader");
+  heroImageH2.classList.add("heroHeader");
+  const heroHeaders = document.querySelectorAll(".heroHeader");
+
+  heroHeaders.forEach((header) => {
+    header.style.fontSize = "60px";
+    header.style.margin = "0";
+    header.style.letterSpacing = "3px";
+    header.style.color = "F8F8F8";
+    header.style.fontWeight = "500";
+  });
+
+  for (let i = 0; i < details.heroTexts.length; i++) {
+    const heroImagep = document.createElement("p");
+    heroTextDiv.appendChild(heroImagep);
+    heroImagep.innerText = details.heroTexts[i];
+    heroImagep.style.fontSize = "22px";
+    heroImagep.style.letterSpacing = "1.5px";
+    heroImagep.style.color = "white";
+    heroImagep.style.margin = "5px";
+  }
+
+  const heroButton = document.createElement("BUTTON");
+  heroTextDiv.appendChild(heroButton);
+  heroButton.innerText = details.buttonText;
+  heroButton.style.padding = "5px";
+  heroButton.style.borderRadius = "5px";
+  heroButton.style.backgroundColor = purple;
+  heroButton.style.color = white;
+  heroButton.style.marginTop = "10px";
+
+  return heroImagediv;
+}
+
 /* Create sale banner */
 
 const saleBanner = document.createElement("div");
@@ -34,12 +174,14 @@ saleText.innerText = "Save 10% if you shop two items or more!";
 smallText(saleText);
 
 /* create navbar */
+
 const navBar = document.createElement("div");
 document.body.append(navBar);
 navBar.style.padding = gP;
 addFlex(navBar);
 
 /* create sitelogo */
+
 const logoLink = document.createElement("a");
 navBar.appendChild(logoLink);
 logoLink.setAttribute("href", "index.html");
@@ -55,6 +197,7 @@ menuItemsHolder.style.justifyContent = "center";
 menuItemsHolder.style.justifyContent = "flex-end";
 
 /* Create searchbar */
+
 const searchBarDiv = document.createElement("div");
 searchBarDiv.style.width = "29%";
 searchBarDiv.style.display = "flex";
@@ -77,6 +220,7 @@ searchIcon.style.height = "25px";
 searchIcon.style.margin = "auto";
 
 /* Create symbols for profile etc */
+
 const navbarOptionsDiv = document.createElement("div");
 menuItemsHolder.appendChild(navbarOptionsDiv);
 
@@ -154,59 +298,94 @@ for (let i = 0; i < uspArray.length; i++) {
 
 /* Creating hero image */
 
-const heroImagediv = document.createElement("div");
-document.body.append(heroImagediv);
-heroImagediv.style.width = "100vw";
-heroImagediv.style.height = "80%";
-heroImagediv.style.display = "flex";
-heroImagediv.style.flexDirection = "column";
-heroImagediv.style.justifyContent = "center";
-heroImagediv.style.backgroundPosition = "center";
-heroImagediv.style.backgroundSize = "cover";
-heroImagediv.style.backgroundImage =
-  "linear-gradient(90deg, rgba(201, 59, 161, 0.1), rgba(0, 0, 0, 0.5)), url('images/hair.jpg')";
-heroImagediv.style.boxShadow = "5px 2px 2px gray";
-const heroTextDiv = document.createElement("div");
-heroImagediv.appendChild(heroTextDiv);
-heroTextDiv.style.padding = "60px";
-const heroImageH1 = document.createElement("h1");
-heroTextDiv.appendChild(heroImageH1);
-heroImageH1.innerText = "Summer";
-const heroImageH2 = document.createElement("h1");
-heroTextDiv.appendChild(heroImageH2);
-heroImageH2.innerText = "bounce!";
-heroImageH1.classList.add("heroHeader");
-heroImageH2.classList.add("heroHeader");
-const heroHeaders = document.querySelectorAll(".heroHeader");
+const heroImage = {
+  image: "images/hair.jpg",
+  h11: "Summer",
+  h12: "bounce!",
+  heroTexts: [
+    "All the best products",
+    "for volumizing your",
+    "hair this summer!",
+  ],
+  buttonText: "SHOP NOW!",
+};
 
-heroHeaders.forEach((header) => {
-  header.style.fontSize = "60px";
-  header.style.margin = "0";
-  header.style.letterSpacing = "3px";
-  header.style.color = "F8F8F8";
-  header.style.fontWeight = "500";
-});
-const heroTexts = [
-  "All the best products",
-  "for volumizing your",
-  "hair this summer!",
-];
+const heroImageDiv = createPicAndText(heroImage);
 
-for (let i = 0; i < heroTexts.length; i++) {
-  const heroImagep = document.createElement("p");
-  heroTextDiv.appendChild(heroImagep);
-  heroImagep.innerText = heroTexts[i];
-  heroImagep.style.fontSize = "22px";
-  heroImagep.style.letterSpacing = "1.5px";
-  heroImagep.style.color = "white";
-  heroImagep.style.margin = "5px";
+/* Create mainpage div and products */
+
+const mainPageDiv = document.createElement("div");
+document.body.append(mainPageDiv);
+mainPageDiv.style.margin = "0 12.5px";
+const hotNow = document.createElement("h3");
+mainPageDiv.appendChild(hotNow);
+hotNow.innerText = "Hot right now";
+hotNow.style.letterSpacing = "0.5px";
+hotNow.style.fontSize = "25px";
+hotNow.style.margin = "15px 12.5px";
+hotNow.style.color = "#36454F";
+
+/* Create container containing product and information */
+
+const productContainer = document.createElement("div");
+mainPageDiv.appendChild(productContainer);
+addFlex(productContainer);
+
+const hotRightNowDetails = {
+  brand: ["Hairly", "Hairly", "Hairly", "Hairly"],
+  product: ["Balsam shampoo", "Balsam conditioner", "Hair serum", "Hair mask"],
+  salePrice: [],
+  price: [149, 249, 549, 149],
+  image: ["shampoo.png", "shampoo.png", "shampoo.png", "shampoo.png"],
+};
+
+createProductDiv(hotRightNowDetails, productContainer);
+
+const subscriptionImage = {
+  image: "images/products.png",
+  h11: "Busy",
+  h12: "Schedule?",
+  heroTexts: ["Let us do the planning", "with our subscription", "package."],
+  buttonText: " SIGN UP! ",
+};
+
+const subscriptionImageDiv = createPicAndText(subscriptionImage);
+
+subscriptionImageDiv.style.margin = "25px 25px 15px";
+
+const salePageDiv = document.createElement("div");
+document.body.append(salePageDiv);
+salePageDiv.style.margin = "0 12.5px";
+const springSale = document.createElement("h3");
+salePageDiv.appendChild(springSale);
+springSale.innerText = "Spring sale!";
+springSale.style.letterSpacing = "0.5px";
+springSale.style.fontSize = "25px";
+springSale.style.margin = "15px 12.5px";
+springSale.style.color = "#36454F";
+
+const saleContainer = document.createElement("div");
+salePageDiv.appendChild(saleContainer);
+addFlex(saleContainer);
+
+const springSaleDetails = {
+  brand: ["Hairly", "Hairly", "Hairly", "Hairly"],
+  product: ["Dry Hair", "Split ends", "Hair mask", "Hair maintenance"],
+  salePrice: [249, 349, 499, 299],
+  price: [59, 99, 89, 66],
+  image: ["shampoo.png", "shampoo.png", "shampoo.png", "shampoo.png"],
+};
+
+createProductDiv(springSaleDetails, saleContainer);
+
+/* media responsiveness */
+
+function mediaResponse(x) {
+  if (x.matches) {
+    productContainer.style.flexWrap = "wrap";
+  }
 }
 
-const heroButton = document.createElement("BUTTON");
-heroTextDiv.appendChild(heroButton);
-heroButton.innerText = "SHOP NOW!";
-heroButton.style.padding = "5px";
-heroButton.style.borderRadius = "5px";
-heroButton.style.backgroundColor = purple;
-heroButton.style.color = white;
-heroButton.style.marginTop = "10px";
+var x = window.matchMedia("(max-width: 700px)");
+mediaResponse(x);
+x.addEventListener("change", mediaResponse);
