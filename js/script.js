@@ -6,6 +6,7 @@ const green = "4bb469";
 const white = "F8F8F8";
 document.querySelector("body").style.fontFamily = 'font-family: "Lora", serif;';
 document.querySelector("body").style.margin = "0";
+document.querySelector("body").style.width = "fit-content";
 
 /* function to add flex and row to variables */
 function addFlex(element) {
@@ -93,7 +94,7 @@ function createProductDiv(productDetails, container) {
     cartImage.style.height = "25px";
     const cartBuy = document.createElement("p");
     cartDiv.appendChild(cartBuy);
-    cartBuy.innerText = "Buy now";
+    cartBuy.innerText = "Speedy shopping!";
     cartBuy.style.color = "#36454F";
     cartBuy.style.margin = "auto 10px";
     cartBuy.style.letterSpacing = "1px";
@@ -152,11 +153,12 @@ function createPicAndText(details) {
   const heroButton = document.createElement("BUTTON");
   heroTextDiv.appendChild(heroButton);
   heroButton.innerText = details.buttonText;
-  heroButton.style.padding = "5px";
+  heroButton.style.padding = "7px";
   heroButton.style.borderRadius = "5px";
   heroButton.style.backgroundColor = purple;
   heroButton.style.color = white;
   heroButton.style.marginTop = "10px";
+  heroButton.style.borderColor = "rgb(180, 75, 150)";
 
   return heroImagediv;
 }
@@ -378,11 +380,136 @@ const springSaleDetails = {
 
 createProductDiv(springSaleDetails, saleContainer);
 
+const trustDiv = document.createElement("div");
+document.body.appendChild(trustDiv);
+trustDiv.style.margin = "25px";
+trustDiv.style.border = "1px solid rgb(199, 199, 199)";
+trustDiv.style.padding = "20px";
+trustDiv.style.display = "flex";
+trustDiv.style.flexDirection = "column";
+trustDiv.style.alignItems = "center";
+trustDiv.style.maxWidth = "100%";
+trustDiv.style.border = "1px solid #A7A7A7";
+trustDiv.style.boxShadow = "rgb(193 193 193) 2px 5px 2px";
+
+const review = {
+  name: "Jane Doe",
+  header: "Great service!",
+  review:
+    "Fantastic service. Products were fantastic and were delivered quickly.",
+  stars: 5,
+};
+
+function reviewDivMaker(review) {
+  const starHolder = document.createElement("div");
+  trustDiv.appendChild(starHolder);
+  starHolder.style.width = "fit-content";
+
+  for (let i = 0; i < review.stars; i++) {
+    const stars = document.createElement("img");
+    starHolder.appendChild(stars);
+    stars.src = "images/star.png";
+    stars.style.margin = "0 1px";
+  }
+  const header = document.createElement("h5");
+  trustDiv.appendChild(header);
+  header.innerText = review.header;
+  header.style.fontSize = "20px";
+  header.style.letterSpacing = "1px";
+  header.style.margin = "15px";
+
+  const reviewDiv = document.createElement("div");
+  trustDiv.appendChild(reviewDiv);
+  addFlex(reviewDiv);
+  reviewDiv.style.alignItems = "center";
+  reviewDiv.style.justifyContent = "space-between";
+  reviewDiv.style.width = "100%";
+
+  const arrowLeft = document.createElement("img");
+  reviewDiv.appendChild(arrowLeft);
+  arrowLeft.src = "images/leftarrow.png";
+  arrowLeft.style.height = "25px";
+  const reviewText = document.createElement("p");
+  reviewDiv.appendChild(reviewText);
+  reviewText.innerText = review.review;
+  reviewText.style.fontSize = "20px";
+  reviewText.style.letterSpacing = "1px";
+  reviewText.style.margin = "0px";
+  const arrowRight = document.createElement("img");
+  reviewDiv.appendChild(arrowRight);
+  arrowRight.src = "images/rightarrow.png";
+  arrowRight.style.height = "25px";
+
+  const userName = document.createElement("p");
+  trustDiv.appendChild(userName);
+  userName.innerText = review.name;
+  userName.style.fontSize = "20px";
+  userName.style.letterSpacing = "1px";
+
+  const trustPilot = document.createElement("p");
+  trustDiv.appendChild(trustPilot);
+  var br = document.createElement("br");
+  trustPilot.innerText = `We have 4.5 stars based on 2530 reviews.`;
+  trustPilot.style.letterSpacing = "1px";
+  trustPilot.style.fontSize = "16px";
+  trustPilot.style.margin = "0";
+
+  const trustPilot2 = document.createElement("p");
+  trustDiv.appendChild(trustPilot2);
+  var br = document.createElement("br");
+  trustPilot2.innerText = `Powered by: Trust Pilot`;
+  trustPilot2.style.letterSpacing = "1px";
+  trustPilot2.style.fontSize = "16px";
+  trustPilot2.style.margin = "5px 0 0";
+}
+
+reviewDivMaker(review);
+
+const footer = document.createElement("div");
+document.body.append(footer);
+addFlex(footer);
+footer.style.justifyContent = "space-between";
+footer.style.backgroundColor = "#EFF2FA";
+footer.style.marginTop = "40px";
+footer.style.padding = "15px 23px";
+
+const services = document.createElement("div");
+footer.appendChild(services);
+addFlex(services);
+services.style.flexWrap = "wrap";
+services.style.width = "250px";
+
+const difServices = ["Contact us", "Returns", "About us", "Jobs"];
+
+for (let i = 0; i < difServices.length; i++) {
+  const serveP = document.createElement("p");
+  services.appendChild(serveP);
+  serveP.innerText = difServices[i];
+  smallText(serveP);
+  serveP.style.color = "#B44B96";
+  serveP.style.width = "90px";
+}
+
+const socials = document.createElement("div");
+footer.appendChild(socials);
+addFlex(socials);
+socials.style.gap = "10px";
+
+const socialIcons = ["facebook", "twitter", "instagram"];
+
+for (let i = 0; i < socialIcons.length; i++) {
+  const socialImage = document.createElement("img");
+  socials.appendChild(socialImage);
+  socialImage.src = `images/${socialIcons[i]}.png`;
+  socialImage.style.width = "25px";
+}
+
 /* media responsiveness */
 
 function mediaResponse(x) {
   if (x.matches) {
-    productContainer.style.flexWrap = "wrap";
+    productContainer.style.flexDirection = "column";
+    saleContainer.style.flexDirection = "column";
   }
 }
 
